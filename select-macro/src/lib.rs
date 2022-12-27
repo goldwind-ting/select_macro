@@ -69,7 +69,8 @@ macro_rules! select {
                                 #[allow(unused_variables)]
                                 #[allow(unused_mut)]
                                 match &out {
-                                    select_macro_utils::select_priv_clean_pattern!($bind) => {}
+                                    select_macro_utils::select_priv_clean_pattern!($bind) => {},
+                                    _ => continue,
                                 }
 
                                 return std::task::Poll::Ready(select_variant!(__select_util::Out, ($($skip)*))(out));
@@ -92,6 +93,7 @@ macro_rules! select {
                 select_variant!(__select_util::Out, ($($skip)*) ($bind)) => $handle,
             )*
             __select_util::Out::Disabled => $else,
+            _ => unreachable!("failed to match bind"),
         }
     }};
 
