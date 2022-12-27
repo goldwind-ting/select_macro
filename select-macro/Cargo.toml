@@ -1,0 +1,17 @@
+[package]
+name = "select-macro"
+version = "0.1.0"
+edition = "2021"
+authors = ["Ban Mengtao <jiuxie@outlook.com>"]
+keywords = ["rust", "async", "select"]
+description = "Waits on multiple concurrent branches."
+license = "MIT"
+repository = "https://github.com/goldwind-ting/select_macro/"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+
+[dependencies]
+macro-utils = { path = "../macro-utils", version = "0.1.0" }
+fastrand = "1.8.0"
+futures = "0.3.25"
