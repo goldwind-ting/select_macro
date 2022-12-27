@@ -12,6 +12,6 @@ repository = "https://github.com/goldwind-ting/select_macro/"
 
 
 [dependencies]
-macro-utils = { path = "../macro-utils", version = "0.1.0" }
+select-macro-utils = { path = "../select-macro-utils", version = "0.1.0" }
 fastrand = "1.8.0"
 futures = "0.3.25"

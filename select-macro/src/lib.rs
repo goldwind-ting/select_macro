@@ -11,7 +11,7 @@ macro_rules! select {
 
         #[doc(hidden)]
         mod __select_util {
-            macro_utils::select_priv_declare_output_enum!( ( $($count)* ) );
+            select_macro_utils::select_priv_declare_output_enum!( ( $($count)* ) );
         }
 
 
@@ -69,7 +69,7 @@ macro_rules! select {
                                 #[allow(unused_variables)]
                                 #[allow(unused_mut)]
                                 match &out {
-                                    macro_utils::select_priv_clean_pattern!($bind) => {}
+                                    select_macro_utils::select_priv_clean_pattern!($bind) => {}
                                 }
 
                                 return std::task::Poll::Ready(select_variant!(__select_util::Out, ($($skip)*))(out));

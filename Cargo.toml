@@ -1,5 +1,5 @@
 [workspace]
 members = [
     "select-macro",
-    "macro-utils"
+    "select-macro-utils"
 ]
