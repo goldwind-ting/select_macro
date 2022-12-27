@@ -15,7 +15,7 @@ The crate was shamelessly stolen from the [`tokio`][tokio].
 More information can be found in the [`docs`][docs].
 
 ## Motivation
-Refer to he [issue](https://github.com/tokio-rs/tokio/issues/5312).
+Refer to the [issue](https://github.com/tokio-rs/tokio/issues/5312).
 
 ## Usage
 Add this to your Cargo.toml
