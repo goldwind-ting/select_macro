@@ -1,6 +1,6 @@
 [package]
 name = "select-macro"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 authors = ["Ban Mengtao <jiuxie@outlook.com>"]
 keywords = ["rust", "async", "select"]
@@ -15,3 +15,7 @@ repository = "https://github.com/goldwind-ting/select_macro/"
 select-macro-utils = { path = "../select-macro-utils", version = "0.1.0" }
 fastrand = "1.8.0"
 futures = "0.3.25"
+
+[dev-dependencies]
+tokio = { version = "1.23.0", features = ["full"] }
+async-std = { version = "1.12.0", features = ["attributes", "unstable"] }
