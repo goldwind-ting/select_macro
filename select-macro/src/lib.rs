@@ -1,3 +1,10 @@
+extern crate select_macro_utils;
+
+
+pub fn thread_rng_n(branches: u32) -> u32{
+    fastrand::u32(0..branches)
+}
+
 #[macro_export]
 macro_rules! select {
     (@ {
@@ -143,7 +150,7 @@ macro_rules! select {
     ( $p:pat = $($t:tt)* ) => {
         // Randomly generate a starting point. This makes `select!` a bit more
         // fair and avoids always polling the first future.
-        $crate::select!(@{ start={ fastrand::u32(0..BRANCHES) }; () } $p = $($t)*)
+        $crate::select!(@{ start={ $crate::thread_rng_n(BRANCHES) }; () } $p = $($t)*)
     };
     () => {
         compile_error!("select! requires at least one branch.")
