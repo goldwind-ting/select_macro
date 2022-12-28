@@ -22,7 +22,7 @@ Add this to your Cargo.toml
 
 ```toml
 [dependencies]
-select-macro = "0.1.2"
+select-macro = "0.2.0"
 ```
 
 ## Quick start:
