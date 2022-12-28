@@ -1,5 +1,4 @@
-extern crate select_macro_utils;
-
+pub mod support;
 
 pub fn thread_rng_n(branches: u32) -> u32{
     fastrand::u32(0..branches)
@@ -18,7 +17,7 @@ macro_rules! select {
 
         #[doc(hidden)]
         mod __select_util {
-            select_macro_utils::select_priv_declare_output_enum!( ( $($count)* ) );
+            $crate::support::select_priv_declare_output_enum!( ( $($count)* ) );
         }
 
 
@@ -38,7 +37,7 @@ macro_rules! select {
 
             let futures = &mut futures;
 
-            futures::future::poll_fn(|cx| {
+            $crate::support::poll_fn(|cx| {
                 let mut is_pending = false;
                 let start = $start;
 
@@ -61,11 +60,11 @@ macro_rules! select {
 
                                 let ( $($skip,)* fut, .. ) = &mut *futures;
 
-                                let fut = unsafe { std::pin::Pin::new_unchecked(fut) };
+                                let fut = unsafe { $crate::support::Pin::new_unchecked(fut) };
 
-                                let out = match std::future::Future::poll(fut, cx) {
-                                    std::task::Poll::Ready(out) => out,
-                                    std::task::Poll::Pending => {
+                                let out = match $crate::support::Future::poll(fut, cx) {
+                                    $crate::support::Poll::Ready(out) => out,
+                                    $crate::support::Poll::Pending => {
                                         is_pending = true;
                                         continue;
                                     }
@@ -76,11 +75,11 @@ macro_rules! select {
                                 #[allow(unused_variables)]
                                 #[allow(unused_mut)]
                                 match &out {
-                                    select_macro_utils::select_priv_clean_pattern!($bind) => {},
+                                    $crate::support::select_priv_clean_pattern!($bind) => {},
                                     _ => continue,
                                 }
 
-                                return std::task::Poll::Ready(select_variant!(__select_util::Out, ($($skip)*))(out));
+                                return $crate::support::Poll::Ready(select_variant!(__select_util::Out, ($($skip)*))(out));
                             }
                         )*
                         _ => unreachable!("reaching this means there probably is an off by one bug"),
@@ -88,9 +87,9 @@ macro_rules! select {
                 }
 
                 if is_pending {
-                    std::task::Poll::Pending
+                    $crate::support::Poll::Pending
                 } else {
-                    std::task::Poll::Ready(__select_util::Out::Disabled)
+                    $crate::support::Poll::Ready(__select_util::Out::Disabled)
                 }
             }).await
         };
